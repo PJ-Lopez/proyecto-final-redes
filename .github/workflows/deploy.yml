@@ -42,8 +42,8 @@ jobs:
         username: root
         password: ${{ secrets.PASSWORD }}
         script: |
-          docker pull ${{ secrets.DOCKER_USERNAME }}/tareas-backend:latest
-          docker pull ${{ secrets.DOCKER_USERNAME }}/tareas-frontend:latest
+          cd /etc/dokploy/compose/final-compose-0kmde2/code
 
-          docker restart prod-backend
-          docker restart prod-frontend
+          docker compose pull
+
+          docker compose up -d

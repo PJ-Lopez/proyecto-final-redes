@@ -54,7 +54,7 @@ function App() {
 
     return (
         <div className="container">
-            <h1>Lista de Tareas</h1>
+            <h1>Lista de Tareas </h1>
 
             <button onClick={() => setModalOpen(true)} className="btn-add">
                 + Agregar Nueva Tarea
