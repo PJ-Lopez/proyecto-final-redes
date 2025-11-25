@@ -46,6 +46,8 @@ jobs:
 
           docker compose pull
 
-          docker compose down
+          docker rm -f prod-db || true
+          docker rm -f prod-backend || true
+          docker rm -f prod-frontend || true
 
           docker compose up -d
