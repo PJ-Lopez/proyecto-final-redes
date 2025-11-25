@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  # 1. Servicio de Base de Datos
+  db:
+    image: mysql:8.0
+    container_name: tareas-db
+    environment:
+      MYSQL_ROOT_PASSWORD: Lopezpedro529
+      MYSQL_DATABASE: tareas
+    ports:
+      - "3307:3306" # Puerto externo 3307 para que no choque con tu Workbench local
+    volumes:
+      - db_data:/var/lib/mysql
+      # ¡AQUÍ ESTÁ LA MAGIA! Esto carga tu tareas.sql automáticamente al iniciar
+      - ./tareas.sql:/docker-entrypoint-initdb.d/init.sql 
+
+  # 2. Servicio Backend (API)
+  backend:
+    build: ./backend
+    container_name: tareas-backend
+    ports:
+      - "3001:3001"  # <--- CORREGIDO: Puerto externo : Puerto interno
+    environment:
+      - DB_HOST=db
+      - DB_USER=root
+      - DB_PASSWORD=Lopezpedro529
+      - DB_NAME=tareas
+      - PORT=3001    # <--- CORREGIDO: Le decimos a Node que arranque aquí
+    depends_on:
+      - db
+
+  # 3. Servicio Frontend (React)
+  frontend:
+    build: ./frontend
+    container_name: tareas-frontend
+    ports:
+      - "3000:80"  # <--- CAMBIO: Tú entras por el 3000, Docker lo manda al 80 interno
+    depends_on:
+      - backend
+
+volumes:
+  db_data:
