@@ -54,7 +54,7 @@ function App() {
 
     return (
         <div className="container">
-            <h1>Lista de Tareas pendientes prueba final ahora si final</h1>
+            <h1>Demostracion final</h1>
 
             <button onClick={() => setModalOpen(true)} className="btn-add">
                 + Agregar Nueva Tarea
