@@ -51,3 +51,12 @@ jobs:
           docker rm -f prod-frontend || true
 
           docker compose up -d
+
+          # --- TRUCO DE ORO PARA LA DEMO ---
+          # Esperamos a que MySQL termine de iniciar (tarda unos segundos)
+          echo "😴 Esperando 20 segundos a que la Base de Datos despierte..."
+          sleep 20
+
+          # Reiniciamos el backend para forzar la reconexión exitosa
+          echo "🔄 Reiniciando Backend para conectar con la BD..."
+          docker restart prod-backend
